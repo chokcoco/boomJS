@@ -1,4 +1,18 @@
-// Boom.js
+/**
+ * @author Coco 
+ * QQ:308695699
+ * @name  boomJS 1.0.0
+ * @description 一个有趣的效果，用 JavaScript 实现让图片爆炸的动画（非Canvas）
+ * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ * 1、本组件用于是学习 jQuery 队列时做的一个小 demo，使用 JavaScript 配合 CSS3 实现一个简单的动画效果
+ *
+ * 2、依赖 jQuery 
+
+ * 3、初始化方法，
+ *  1）提供 var boom = new boom() 构造函数，构建 boom 实例
+ *  2）直接 boom().boom() 进行调用
+ *
+ */
 (function(window, undefined) {
 	var
 	// 是否插入了 jQuery
