@@ -10,12 +10,13 @@
 
  * 3、初始化方法，
  *  1）提供 var boom = new boom() 构造函数，构建 boom 实例
- *  2）直接 boom().boom() 进行调用
+ *  2）直接 boom().boom() 进行调用，传入 img 的 jQuery 对象
  *
+ * 4、目前只支持未经过缩放的图片
  */
 (function(window, undefined) {
 	var
-	// 是否插入了 jQuery
+		// 是否插入了 jQuery
 		isInsetJq = false,
 		// css参数预设
 		cssOption = {
@@ -32,7 +33,11 @@
 			return new boom.prototype.init();
 		},
 		// 偏移距离 
-		arrRandomOffset = [1, -4, 8, -12, 16, -20, 24, -28, 32];
+		arrRandomOffset = [1, -4, 8, -12, 16, -20, 24, -28, 32],
+		// 图片集
+		imgArr = [],
+		// 传入的图片个数
+		imgLength = 0;
 
 	// 加载js	
 	function loadScript(url, callback) {
@@ -56,27 +61,33 @@
 	}
 
 	// 计算坐标并添加新的层覆盖在原图上
+	// 返回一个 jQuery 对象（dom 节点，是一个和图片高宽绝对定位坐标一致的 div）
 	function calcPosition(elem) {
-		imgUrl = elem.attr('src');
+		imgUrl = elem.attr('src') || "";
 
+		// 转化为 JS 对象
 		var obj = elem[0];
 
+		// getBoundingClientRect 方法返回元素的大小及其相对于视口的位置
+		// 这是个 JS 对象方法，注意下文和 jQuery 对象的相互转换
 		var posi = obj.getBoundingClientRect(),
+			// 图片的宽高和定位
 			elemCss = {
 				width: obj.width,
 				height: obj.height,
 				top: posi.top,
 				left: posi.left,
 			},
+			// 生成新的 div 的 css 样式
 			realCss = $.extend(cssOption, elemCss);
 
-		var newContent = document.createElement('div');
+		var newDiv = $(document.createElement('div'));
 
-		$(newContent).css(realCss);
+		newDiv.css(realCss);
 
-		$('body').append($(newContent));
+		$('body').append(newDiv);
 
-		return $(newContent);
+		return newDiv;
 	}
 
 	// 在原图上生成小的 div 块
@@ -84,9 +95,10 @@
 		var obj = elem,
 			width = elem.width(),
 			height = elem.height();
-		miniNum = 10,
+			miniNum = 10,
 			widthNum = 0,
 			heightNum = 0,
+			// div 小块的宽度
 			newElemWidth = 0,
 			i = 0,
 			j = 0,
@@ -100,17 +112,19 @@
 
 		var basePoint = width > height ? height : width;
 
+		//console.log('base point is :'+basePoint);
+
 		if (basePoint == width) {
-			newElemWidth = Math.floor(width / miniNum),
-				heightNum = Math.floor(height / newElemWidth);
+			newElemWidth = Math.floor(width / miniNum);
+			heightNum = Math.floor(height / newElemWidth);
 			widthNum = miniNum;
 		} else {
-			newElemWidth = Math.floor(height / miniNum),
-				widthNum = Math.floor(height / newElemWidth);
-			heightNum = miniNum;
+			newElemWidth = Math.floor(height / miniNum);
+			heightNum = Math.floor(width / newElemWidth);
+			widthNum = miniNum;
 		}
 
-		//console.log('width:'+widthNum+',height:'+heightNum+',width:'+newElemWidth);
+		//console.log('widthNum:'+widthNum+',height:'+heightNum+',width:'+newElemWidth);
 
 		var newElemCss = {
 			position: 'absolute',
@@ -121,6 +135,16 @@
 			left: 0
 		}
 
+		// 比较宽高大小，确定插入的行数
+		if(height > width){
+			// 交换 width ，height 的值
+			widthNum = widthNum * heightNum;
+			heightNum = widthNum / heightNum;
+			widthNum = widthNum / heightNum;
+		}
+
+		//console.log('widthNum:'+widthNum+',heightNum:'+heightNum+',newElemWidth:'+newElemWidth);
+		
 		for (; i < widthNum; i++) {
 			for (; j < heightNum; j++) {
 				var randomSize = Math.random() * 3,
@@ -141,7 +165,7 @@
 						left: cssLeft,
 						transform: 'scale(' + randomSize + ')'
 					};
-				//console.log('cssTop is:'+cssTop+',cssLeft is:'+cssLeft+',posiElemCss:'+posiElemCss);	
+				// console.log('cssTop is:'+cssTop+',cssLeft is:'+cssLeft+',posiElemCss:'+posiElemCss);	
 				// console.log(newElemCss);
 				// var curElemCss = $.extend(newELemCss,posiElemCss);	
 				$(newElem).css(posiElemCss);
@@ -151,10 +175,6 @@
 		}
 		//console.log(elemArr);
 		elem.append(elemArr);
-	}
-
-	function shakeAminate(elem) {
-		elem.addClass('shake');
 	}
 
 	// 计算 boom 动画轨迹终止点
@@ -222,9 +242,19 @@
 		init: function() {
 			return this;
 		},
-		boom: function(elem) {
-			elem = elem.eq(0);
+		boom: function(elems) {
+			var elemLength = elems.length;
 
+			if(!elemLength){
+				return;
+			}else{
+				elem = elems.eq(imgLength++).show();
+			}
+
+			if(imgLength == elemLength){
+				imgLength = 0;
+			}
+			
 			var randomNum = Math.random() * 2,
 				certerPonit = {
 					x: Math.floor(elem.width() / 2) + randomNum,
@@ -232,11 +262,12 @@
 				}
 
 			var newWrap = calcPosition(elem);
-			//shakeAminate(elem);
-
+			// insertSmallDiv(newWrap);
+			// elem.hide();
 			elem
 				.delay(300, 'shake')
 				.queue('shake', function(next) {
+					// 300s 后隐藏原图
 					$(this).animate({
 						opacity: 0
 					}, {
@@ -244,6 +275,7 @@
 					})
 					next();
 				})
+				// 摇晃效果
 				.dequeue('shake')
 				.addClass('shake')
 				.queue('shake', function() {
@@ -259,8 +291,9 @@
 								x: parseInt(div.css('left')),
 								y: parseInt(div.css('top'))
 							}
-
 						//console.log(divPoint);	
+						
+						// 一些随机数添加
 						var resultPoint = ramdomPosition(certerPonit, divPoint);
 						//console.log(resultPoint);
 						var randomOffset = arrRandomOffset[i % 9];
