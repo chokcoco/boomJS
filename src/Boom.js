@@ -7,7 +7,7 @@
  * 1、本组件用于是学习 jQuery 队列时做的一个小 demo，使用 JavaScript 配合 CSS3 实现一个简单的动画效果
  *
  * 2、依赖 jQuery 
-
+ 
  * 3、初始化方法，
  *  1）提供 var boom = new boom() 构造函数，构建 boom 实例
  *  2）直接 boom().boom() 进行调用，传入 img 的 jQuery 对象
@@ -16,7 +16,7 @@
  */
 (function(window, undefined) {
 	var
-		// 是否插入了 jQuery
+	// 是否插入了 jQuery
 		isInsetJq = false,
 		// css参数预设
 		cssOption = {
@@ -95,7 +95,7 @@
 		var obj = elem,
 			width = elem.width(),
 			height = elem.height();
-			miniNum = 10,
+		miniNum = 10,
 			widthNum = 0,
 			heightNum = 0,
 			// div 小块的宽度
@@ -136,7 +136,7 @@
 		}
 
 		// 比较宽高大小，确定插入的行数
-		if(height > width){
+		if (height > width) {
 			// 交换 width ，height 的值
 			widthNum = widthNum * heightNum;
 			heightNum = widthNum / heightNum;
@@ -144,7 +144,7 @@
 		}
 
 		//console.log('widthNum:'+widthNum+',heightNum:'+heightNum+',newElemWidth:'+newElemWidth);
-		
+
 		for (; i < widthNum; i++) {
 			for (; j < heightNum; j++) {
 				var randomSize = Math.random() * 3,
@@ -245,16 +245,16 @@
 		boom: function(elems) {
 			var elemLength = elems.length;
 
-			if(!elemLength){
+			if (!elemLength) {
 				return;
-			}else{
+			} else {
 				elem = elems.eq(imgLength++).show();
 			}
 
-			if(imgLength == elemLength){
+			if (imgLength == elemLength) {
 				imgLength = 0;
 			}
-			
+
 			var randomNum = Math.random() * 2,
 				certerPonit = {
 					x: Math.floor(elem.width() / 2) + randomNum,
@@ -291,8 +291,7 @@
 								x: parseInt(div.css('left')),
 								y: parseInt(div.css('top'))
 							}
-						//console.log(divPoint);	
-						
+
 						// 一些随机数添加
 						var resultPoint = ramdomPosition(certerPonit, divPoint);
 						//console.log(resultPoint);
