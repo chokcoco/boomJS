@@ -1,16 +1,17 @@
 /**
- * @author Coco 
+ * @author Coco
  * QQ:308695699
  * @name  boomJS 1.0.0
  * @description 一个有趣的效果，用 JavaScript 实现让图片爆炸的动画（非Canvas）
  * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
  * 1、本组件用于是学习 jQuery 队列时做的一个小 demo，使用 JavaScript 配合 CSS3 实现一个简单的动画效果
  *
- * 2、依赖 jQuery 
- 
+ * 2、依赖 jQuery
+
  * 3、初始化方法，
  *  1）提供 var boom = new boom() 构造函数，构建 boom 实例
  *  2）直接 boom().boom() 进行调用，传入 img 的 jQuery 对象
+ *  例如：boom().boom($('img'))
  *
  * 4、目前只支持未经过缩放的图片
  */
@@ -28,18 +29,18 @@
 		},
 		// 存储图片地址
 		imgUrl = "",
-		// 暴露的最终变量 
+		// 暴露的最终变量
 		boom = function() {
 			return new boom.prototype.init();
 		},
-		// 偏移距离 
+		// 偏移距离
 		arrRandomOffset = [1, -4, 8, -12, 16, -20, 24, -28, 32],
 		// 图片集
 		imgArr = [],
 		// 传入的图片个数
 		imgLength = 0;
 
-	// 加载js	
+	// 加载js
 	function loadScript(url, callback) {
 		if (isInsetJq) {
 			return;
@@ -90,12 +91,15 @@
 		return newDiv;
 	}
 
-	// 在原图上生成小的 div 块
+	/**
+	 * 在原图上生成小的 div 块
+	 * @param elem 原图的 jQuery 对象
+	 */
 	function insertSmallDiv(elem) {
 		var obj = elem,
 			width = elem.width(),
-			height = elem.height();
-		miniNum = 10,
+			height = elem.height(),
+			miniNum = 10,
 			widthNum = 0,
 			heightNum = 0,
 			// div 小块的宽度
@@ -165,9 +169,9 @@
 						left: cssLeft,
 						transform: 'scale(' + randomSize + ')'
 					};
-				// console.log('cssTop is:'+cssTop+',cssLeft is:'+cssLeft+',posiElemCss:'+posiElemCss);	
+				// console.log('cssTop is:'+cssTop+',cssLeft is:'+cssLeft+',posiElemCss:'+posiElemCss);
 				// console.log(newElemCss);
-				// var curElemCss = $.extend(newELemCss,posiElemCss);	
+				// var curElemCss = $.extend(newELemCss,posiElemCss);
 				$(newElem).css(posiElemCss);
 				elemArr.push(newElem);
 			}
@@ -177,10 +181,15 @@
 		elem.append(elemArr);
 	}
 
-	// 计算 boom 动画轨迹终止点
+	/**
+	 * 计算 boom 动画轨迹终止点
+	 * @param  center 图片中心坐标
+	 * @param  div    将要运动的图片坐标
+	 * @return {x,y}  返回点 div 的动画轨迹终止点
+	 */
 	function ramdomPosition(center, div) {
 		var
-		// 直线斜率 
+		// 直线斜率
 			slope = 0,
 			// 爆炸范围
 			randomBoomDis = Math.random() * 5,
