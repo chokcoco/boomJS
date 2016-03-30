@@ -9,11 +9,11 @@
  * 2、依赖 jQuery
 
  * 3、初始化方法，
- *  1）提供 var boom = new boom() 构造函数，构建 boom 实例
- *  2）直接 boom().boom() 进行调用，传入 img 的 jQuery 对象
- *  例如：boom().boom($('img'))
+ *  1）提供 var bom = new boom() 构造函数，构建 boom 实例，调用 bom.boom()，传入 img 的 jQuery 对象，例如bom.boom($('img'))
+ *  2）直接 boom() 进行调用，传入 img 的 jQuery 对象，例如 boom($('img'))
  *
  * 4、目前只支持未经过缩放的图片
+ *
  */
 (function(window, undefined) {
 	var
@@ -30,8 +30,8 @@
 		// 存储图片地址
 		imgUrl = "",
 		// 暴露的最终变量
-		boom = function() {
-			return new boom.prototype.init();
+		boom = function(elems) {
+			return new boom.prototype.init(elems);
 		},
 		// 偏移距离
 		arrRandomOffset = [1, -4, 8, -12, 16, -20, 24, -28, 32],
@@ -248,7 +248,13 @@
 	}
 
 	boom.prototype = {
-		init: function() {
+		init: function(elems) {
+			var argLength = arguments.length;
+
+			if(arguments[0] !== undefined){
+				this.boom(elems);
+			}
+
 			return this;
 		},
 		boom: function(elems) {
@@ -318,6 +324,7 @@
 
 	boom.prototype.init.prototype = boom.prototype;
 
+	// 暴露变量
 	window.boom = boom;
 
 })(window)
