@@ -15,9 +15,11 @@ bom.boom($('img'));
 ```
 
 ### 效果图
-![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample.gif) 
 
 ![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample2.gif) 
+
+![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample.gif) 
+
 
 ### IOS 下的效果
 [UIViewXXYBoom](https://github.com/xxycode/UIViewXXYBoom)
