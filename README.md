@@ -2,7 +2,11 @@
 一个有趣的效果，用 JavaScript 配合 CSS3 实现让图片爆炸的动画（非Canvas实现）
 ### 使用方法
 ```javascript
-// 法一：传入图片的 jQuery 对象
+// 引入css文件
+// <link rel="stylesheet" type="text/css" href="./css/Boom.css" />
+
+// 调用方法：
+//法一：传入图片的 jQuery 对象
 boom($('img')) 
 
 // 法二：构建 boom 实例，传入图片的 jQuery 对象
