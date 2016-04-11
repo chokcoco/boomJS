@@ -6,7 +6,7 @@
  * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
  * 1、本组件用于是学习 jQuery 队列时做的一个小 demo，使用 JavaScript 配合 CSS3 实现一个简单的动画效果
  *
- * 2、依赖 jQuery，且需要引入 Boom.css ；
+ * 2、依赖 jQuery，且需要额外引入 Boom.css ；
 
  * 3、初始化方法，
  *  1）提供 var bom = new boom() 构造函数，构建 boom 实例，调用 bom.boom()，传入 img 的 jQuery 对象，例如bom.boom($('img'))
@@ -251,7 +251,7 @@
 		init: function(elems) {
 			var argLength = arguments.length;
 
-			if (arguments[0] !== undefined) {
+			if(arguments[0] !== undefined){
 				this.boom(elems);
 			}
 

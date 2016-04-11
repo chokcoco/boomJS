@@ -1,0 +1,23 @@
+.shake{animation:shake 0.3s ease-in;-webkit-animation:shakeAm 0.3s ease-in}
+@keyframes shakeAm{
+	0%{transform:rotateZ(0deg) translate(0,0)}
+	12.5%{transform:rotateZ(12deg) translate(6px,6px)}
+	25%{transform:rotateZ(0deg) translate(-4px,5px)}
+	37.5%{transform:rotateZ(-12deg) translate(-6px,-6px)}
+	50%{transform:rotateZ(0deg) translate(0,0)}
+	62.5%{transform:rotateZ(6deg) translate(3px,4px)}
+	75%{transform:rotateZ(0deg) translate(-3px,-2px)}
+	87.5%{transform:rotateZ(6deg) translate(3px,-2px)}
+	100%{transform:rotateZ(0deg) translate(-1px,1px)}
+}
+@-webkit-keyframes shakeAm{
+	0%{transform:rotateZ(0deg) translate(0,0)}
+	12.5%{transform:rotateZ(12deg) translate(6px,6px)}
+	25%{transform:rotateZ(0deg) translate(-4px,5px)}
+	37.5%{transform:rotateZ(-12deg) translate(-6px,-6px)}
+	50%{transform:rotateZ(0deg) translate(0,0)}
+	62.5%{transform:rotateZ(6deg) translate(3px,4px)}
+	75%{transform:rotateZ(0deg) translate(-3px,-2px)}
+	87.5%{transform:rotateZ(6deg) translate(3px,-2px)}
+	100%{transform:rotateZ(0deg) translate(-1px,1px)}
+}

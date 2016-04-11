@@ -2,7 +2,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/Boom.css" />
+	<title>BoomJS演示Demo</title>
 </head>
 <style>
 *{
@@ -37,79 +38,17 @@
 	box-shadow:0 0 2px #e6e6e6;
 	margin-bottom:5px;
 }
-.test{
-	width:10px;
-	height:10px;
-	background:url('./images2.jpg') no-repeat 0 0;
-}
-.shake{
-	animation:shake 0.3s ease-in;
-	-webkit-animation: shakeAm 0.3s ease-in;
-}
-.boom{
-	animation:boomAm 0.5s ease-out;
-	-webkit-animation: boomAm 0.5s ease-out;
-	animation-fill-mode:forwards ;
-	-webkit-animation-fill-mode:forwards ;
-}
-
-@keyframes shakeAm
-{
-	0% {
-		transform:rotateZ(0deg) translate(0,0);
-	}25% {
-		transform:rotateZ(12deg) translate(4px,4px);
-	}50%{
-		transform:rotateZ(0deg) translate(-2px,2px);
-	}75%{
-		transform:rotateZ(-12deg) translate(-4px,-4px);
-	}100%{
-		transform:rotateZ(0deg) translate(0,0);
-	}
-}
-@-webkit-keyframes shakeAm
-{
-	0% {
-		transform:rotateZ(0deg);
-	}25% {
-		transform:rotateZ(15deg);
-	}50%{
-		transform:rotateZ(0deg);
-	}75%{
-		transform:rotateZ(-15deg);
-	}100%{
-		transform:rotateZ(0deg);
-	}
-}
-@keyframes boomAm
-{
-	0% {
-		transform:translate(0,0);
-	}100% {
-		transform:translate(60px,0);
-		opacity:0;
-	}
-}
-@-webkit-keyframes boomAm
-{
-	0% {
-		transform:translate(0,0);
-	}100% {
-		transform:translate(60px,0);
-		opacity:0;
-	}
-}
-
-
 </style>
+
 <body>
 <div class="wrap">
-	<img class='pic1' src="./images2.jpg">
-	<img class='pic2' src="./images.jpg">
+	<img class='pic1' src="./images/images2.jpg">
+	<img class='pic2' src="./images/images.jpg">
 </div>
+
 <script type="text/javascript" src="http://cdnjs.gtimg.com/cdnjs/libs/jquery/1.8.0/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="./Boom.js"></script>
-<div class="btn-click">点击BOOM</div>
+<script type="text/javascript" src="./js/Boom.js"></script>
+<div class="btn-click">点我BOOM</div>
 <script>
 	$('.btn-click').on('click', function(event) {
 		boom($('img'));
