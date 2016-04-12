@@ -263,7 +263,7 @@
 			if (!elemLength) {
 				return;
 			} else {
-				elem = elems.eq(imgLength++).show();
+				elem = elems.eq(imgLength++).css({"opacity":"1"});
 			}
 
 			if (imgLength == elemLength) {
@@ -288,6 +288,9 @@
 					}, {
 						duration: 1
 					})
+					// 这里移除 shake 是为了二次触发
+					.removeClass('shake');
+
 					next();
 				})
 				// 摇晃效果
