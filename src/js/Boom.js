@@ -6,13 +6,22 @@
  * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
  * 1、本组件用于是学习 jQuery 队列时做的一个小 demo，使用 JavaScript 配合 CSS3 实现一个简单的动画效果
  *
- * 2、依赖 jQuery，且需要额外引入 Boom.css ；
+ * 2、依赖 jQuery，为了方便在其他页面复用，单独出一个 Boom.css 放入核心样式；
 
  * 3、初始化方法，
  *  1）提供 var bom = new boom() 构造函数，构建 boom 实例，调用 bom.boom()，传入 img 的 jQuery 对象，例如bom.boom($('img'))
  *  2）直接 boom() 进行调用，传入 img 的 jQuery 对象，例如 boom($('img'))
  *
- * 4、目前只支持未经过缩放的图片
+ * 4、动画预设，支持传入不同参数调整效果
+ *   boom($('img'),{
+ *    'scaleLevel' : 3,
+ *    'blurLevel': 9,
+ *    'boomLevel': 4,
+ *    'boomTime':800,
+ *    'isOpenLog':true
+ *   });
+ *
+ * 5、目前只支持未经过缩放的图片
  *
  */
 (function(window, undefined) {
@@ -30,15 +39,28 @@
 		// 存储图片地址
 		imgUrl = "",
 		// 暴露的最终变量
-		boom = function(elems) {
-			return new boom.prototype.init(elems);
+		boom = function(elems, options) {
+			return new boom.prototype.init(elems, options);
 		},
-		// 偏移距离
-		arrRandomOffset = [1, -4, 8, -12, 16, -20, 24, -28, 32],
 		// 图片集
 		imgArr = [],
 		// 传入的图片个数
-		imgLength = 0;
+		imgLength = 0,
+		// 动画效果预设参数
+		argOptions = {
+			// 缩放值
+			'scaleLevel': 3,
+			// 模糊值
+			'blurLevel': 3,
+			// 弹射距离
+			'boomLevel': 4,
+			// 爆炸时长
+			'boomTime': 800,
+			// 是否打开日志，所有日志写在 log 方法里
+			'isOpenLog': false
+		},
+		// 偏移距离
+		arrRandomOffset = [1, -4, 8, -12, 16, -20, 24, -28, 32];
 
 	// 加载js
 	function loadScript(url, callback) {
@@ -59,6 +81,27 @@
 		}
 
 		isInsetJq = true;
+	}
+
+	// 日志控制
+	function log() {
+		if (argOptions.isOpenLog) {
+			console.log.apply(console, arguments);
+		}
+	}
+
+	// 偏移距离设置
+	function arrRandomOff(level) {
+		var i = 0;
+
+		// reset array
+		arrRandomOffset = [];
+
+		for (; i < 9; i++) {
+			arrRandomOffset[i] = level * i;
+		}
+
+		log('arrRandomOffset is ' + arrRandomOffset)
 	}
 
 	// 计算坐标并添加新的层覆盖在原图上
@@ -108,7 +151,7 @@
 			j = 0,
 			elemArr = [];
 
-		//console.log(width+','+height);
+		log(width + ',' + height);
 
 		if (width <= 10 && height <= 10) {
 			return;
@@ -116,7 +159,7 @@
 
 		var basePoint = width > height ? height : width;
 
-		//console.log('base point is :'+basePoint);
+		log('base point is :' + basePoint);
 
 		if (basePoint == width) {
 			newElemWidth = Math.floor(width / miniNum);
@@ -128,16 +171,7 @@
 			widthNum = miniNum;
 		}
 
-		//console.log('widthNum:'+widthNum+',height:'+heightNum+',width:'+newElemWidth);
-
-		var newElemCss = {
-			position: 'absolute',
-			width: newElemWidth,
-			height: newElemWidth,
-			'border-radius': '100%',
-			top: 0,
-			left: 0
-		}
+		log('widthNum:' + widthNum + ',height:' + heightNum + ',width:' + newElemWidth);
 
 		// 比较宽高大小，确定插入的行数
 		if (height > width) {
@@ -147,11 +181,13 @@
 			widthNum = widthNum / heightNum;
 		}
 
-		//console.log('widthNum:'+widthNum+',heightNum:'+heightNum+',newElemWidth:'+newElemWidth);
+		log('widthNum:' + widthNum + ',heightNum:' + heightNum + ',newElemWidth:' + newElemWidth);
 
+		// 插入每个小 div 块，并定位
 		for (; i < widthNum; i++) {
 			for (; j < heightNum; j++) {
-				var randomSize = Math.random() * 3,
+				var randomSize = Math.random() * argOptions.scaleLevel,
+					randomBlur = Math.random() * argOptions.blurLevel,
 					newElem = document.createElement('div'),
 					cssTop = i * newElemWidth,
 					cssLeft = j * newElemWidth,
@@ -159,25 +195,29 @@
 						'background-image': 'url(' + imgUrl + ')',
 						'background-repeat': 'no-repeat',
 						'background-position': '-' + cssLeft + 'px ' + '-' + cssTop + 'px',
-						position: 'absolute',
-						width: newElemWidth,
-						height: newElemWidth,
+						'position': 'absolute',
+						'width': newElemWidth,
+						'height': newElemWidth,
 						'border-radius': '100%',
-						top: 0,
-						left: 0,
-						top: cssTop,
-						left: cssLeft,
-						transform: 'scale(' + randomSize + ')'
+						'top': 0,
+						'left': 0,
+						'top': cssTop,
+						'left': cssLeft,
+						// 每个小块随机缩放，看上去更加真实
+						'transform': 'scale(' + randomSize + ')',
+						// 加入 css3 毛玻璃效果，效果更佳，看上去更加3d
+						'-webkit-filter': 'blur(' + randomBlur + 'px)',
+						'-moz-filter': 'blur(' + randomBlur + 'px)',
+						'-ms-filter': 'blur(' + randomBlur + 'px)',
+						'filter': 'blur(' + randomBlur + 'px)'
 					};
-				// console.log('cssTop is:'+cssTop+',cssLeft is:'+cssLeft+',posiElemCss:'+posiElemCss);
-				// console.log(newElemCss);
-				// var curElemCss = $.extend(newELemCss,posiElemCss);
+				log('cssTop is:' + cssTop + ',cssLeft is:' + cssLeft + ',posiElemCss:' + posiElemCss);
 				$(newElem).css(posiElemCss);
 				elemArr.push(newElem);
 			}
 			j = 0;
 		}
-		//console.log(elemArr);
+		log(elemArr);
 		elem.append(elemArr);
 	}
 
@@ -206,16 +246,17 @@
 		if (center.x != div.x && center.y != div.y) {
 			slope = (center.y - div.y) / (center.x - div.x);
 
-			// y = kx + b
-			var b = center.y - (slope * center.x);
+			// 直线公式：y = kx + b
+			var b = center.y - (slope * center.x),
+				randomPosX = Math.random(),
+				randomPosY = Math.random();
 
-			//console.log('斜率slope is:'+slope+',b is:'+b+',distance is:'+distance);
+			log('斜率slope is:' + slope + ',b is:' + b + ',distance is:' + distance);
 
 			// 轨迹终止的Y点
-			// (2*div.y - center.y) : (distance + center.y)
-			result.y = (isTop == true ? (2 * div.y - center.y) : (2 * div.y - center.y)) + ((Math.random() > 0.5 ? Math.random() * 4 : -Math.random() * 4)),
+			result.y = ((2 * div.y - center.y)) + ((randomPosX > 0.5 ? randomPosX * 4 : -randomPosX * 4)),
 				// 轨迹终止的X点
-				result.x = ((result.y - b) / slope) + ((Math.random() > 0.5 ? Math.random() * 4 : -Math.random() * 4));
+				result.x = ((result.y - b) / slope) + ((randomPosY > 0.5 ? randomPosY * 4 : -randomPosY * 4));
 
 			return result;
 		} else if (center.x == div.x) {
@@ -247,12 +288,23 @@
 		}
 	}
 
+	// boom 对象
 	boom.prototype = {
-		init: function(elems) {
+		init: function(elems, options) {
 			var argLength = arguments.length;
 
-			if(arguments[0] !== undefined){
+			if (arguments[0] !== undefined) {
 				this.boom(elems);
+			}
+
+			argOptions = $.extend(argOptions, options);
+
+			log('argOptions is ');
+			log(argOptions);
+
+			// 修改弹射距离
+			if (argOptions.boomLevel != 4) {
+				arrRandomOff(argOptions.boomLevel);
 			}
 
 			return this;
@@ -263,7 +315,9 @@
 			if (!elemLength) {
 				return;
 			} else {
-				elem = elems.eq(imgLength++).css({"opacity":"1"});
+				elem = elems.eq(imgLength++).css({
+					"opacity": "1"
+				});
 			}
 
 			if (imgLength == elemLength) {
@@ -280,16 +334,16 @@
 			// insertSmallDiv(newWrap);
 			// elem.hide();
 			elem
-				.delay(300, 'shake')
+				.delay(200, 'shake')
 				.queue('shake', function(next) {
 					// 300s 后隐藏原图
 					$(this).animate({
-						opacity: 0
-					}, {
-						duration: 1
-					})
-					// 这里移除 shake 是为了二次触发
-					.removeClass('shake');
+							opacity: 0
+						}, {
+							duration: 1
+						})
+						// 这里移除 shake 是为了二次触发
+						.removeClass('shake');
 
 					next();
 				})
@@ -312,14 +366,14 @@
 
 						// 一些随机数添加
 						var resultPoint = ramdomPosition(certerPonit, divPoint);
-						//console.log(resultPoint);
+						log(resultPoint);
 						var randomOffset = arrRandomOffset[i % 9];
 
 						divs.eq(i).animate({
 							left: resultPoint.x + (Math.random() > 0.5 ? randomOffset : -randomOffset),
 							top: resultPoint.y + (Math.random() > 0.5 ? randomOffset : -randomOffset),
 							opacity: 0
-						}, 800);
+						}, argOptions.boomTime);
 					}
 				});
 		}
