@@ -36,6 +36,7 @@ boom($('img'),{
  'isOpenLog':true
 });
 ```
+温馨提示，不建议将 scaleLevel 的值设太高 :) 。
 
 ### IOS 下的效果
 [UIViewXXYBoom](https://github.com/xxycode/UIViewXXYBoom)
