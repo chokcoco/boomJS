@@ -1,5 +1,12 @@
 # boomJS
 一个有趣的效果，用 JavaScript 配合 CSS3 实现让图片爆炸的动画（非Canvas实现）
+
+### 效果图
+
+![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample2.gif) 
+
+![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample.gif) 
+
 ### 使用方法
 ```javascript
 // 引入css文件
@@ -14,12 +21,21 @@ var bom = boom();
 bom.boom($('img'));
 ```
 
-### 效果图
-
-![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample2.gif) 
-
-![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample.gif) 
-
+### 动画预设，支持传入不同参数调整效果
+```javascript
+boom($('img'),{
+  // 缩放值
+ 'scaleLevel' : 3,
+  // 模糊值
+ 'blurLevel': 9,
+  // 弹射距离 
+ 'boomLevel': 4,
+  // 爆炸时长
+ 'boomTime':800,
+  // 是否打开日志
+ 'isOpenLog':true
+});
+```
 
 ### IOS 下的效果
 [UIViewXXYBoom](https://github.com/xxycode/UIViewXXYBoom)
