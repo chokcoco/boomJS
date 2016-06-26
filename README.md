@@ -45,7 +45,7 @@ boom($('img'),{
 
 ### 扩展延伸
 
-近期钻研了 CSS3 3D 效果，产出如下，故打算尝试配合 transform 3d 制作个 3D 爆炸效果。
+近期钻研了 `CSS3 3D` 效果，产出如下，故打算尝试配合 transform 3d 制作个 3D 爆炸效果。
 
 [CSS3 3D 行星运转动画](https://github.com/chokcoco/css3-)
 
