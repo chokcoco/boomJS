@@ -1,7 +1,8 @@
 # boomJS
 一个有趣的效果，用 `JavaScript` 配合 `CSS3` 实现让图片爆炸的动画（非`Canvas`实现）
 
-[Demo演示戳我](http://sbco.cc/demo/boom/demo.html)
+### 效果演示
+Demo地址：[Demo演示戳我](http://sbco.cc/demo/boom/demo.html)
 
 ### 效果图
 
