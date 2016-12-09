@@ -46,11 +46,5 @@ boom($('img'),{
 
 之前在 IOS 上面看到了一个这样的效果，寻思着能否用 Javascript 实现一遍，捣鼓了一番做出了如上图所示效果，因为是非 canvas ，无法取到图片上的色值，使用了背景图定位代替，所以性能方面可能有所不足。
 
-### 扩展延伸
-
-近期钻研了 `CSS3 3D` 效果，产出如下，故打算尝试配合 `transform 3d` 制作个 3D 爆炸效果。
-
-[CSS3 3D 行星运转动画](https://github.com/chokcoco/css3-)
-
 ### License
 MIT
