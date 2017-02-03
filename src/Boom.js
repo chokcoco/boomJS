@@ -263,7 +263,7 @@
 			if (!elemLength) {
 				return;
 			} else {
-				elem = elems.eq(imgLength++).show();
+				elem = elems.eq(imgLength++).css({"opacity":"1"});
 			}
 
 			if (imgLength == elemLength) {
