@@ -12,9 +12,12 @@
 ## Usage
 
 ```javascript
-// 引入css文件
-// <link rel="stylesheet" type="text/css" href="./css/Boom.css" />
+<!-- style -->
+<link rel="stylesheet" type="text/css" href="Boom.css" />
+<!-- scripts -->
+<script src="boom.js"></script>
 
+<script>
 // 调用方法：
 //法一：传入图片的 jQuery 对象
 boom($('img')) 
@@ -22,6 +25,7 @@ boom($('img'))
 // 法二：构建 boom 实例，传入图片的 jQuery 对象
 var bom = boom();
 bom.boom($('img'));
+</script>
 ```
 
 ## API
