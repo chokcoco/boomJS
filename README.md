@@ -11,7 +11,7 @@
 
 ## Usage
 
-```javascript
+```HTML
 <!-- style -->
 <link rel="stylesheet" type="text/css" href="Boom.css" />
 <!-- scripts -->
