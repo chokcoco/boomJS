@@ -15,6 +15,8 @@
 <!-- style -->
 <link rel="stylesheet" type="text/css" href="Boom.css" />
 <!-- scripts -->
+<script src="jquery.js"></script>
+<!-- scripts -->
 <script src="boom.js"></script>
 
 <script>
