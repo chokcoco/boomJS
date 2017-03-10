@@ -2,7 +2,8 @@
 一个有趣的效果，用 `JavaScript` 配合 `CSS3` 实现让图片爆炸的动画（非`Canvas`实现）
 
 ### 效果演示
-Demo地址：[Demo演示戳我](http://sbco.cc/demo/boom/demo.html)
+
+[Demo演示戳我](http://sbco.cc/demo/boom/demo.html)
 
 ### 效果图
 
@@ -10,7 +11,7 @@ Demo地址：[Demo演示戳我](http://sbco.cc/demo/boom/demo.html)
 
 ![Boom效果演示图](https://github.com/chokcoco/boomJS/blob/master/boomExample.gif) 
 
-### 使用方法
+### Use
 ```javascript
 // 引入css文件
 // <link rel="stylesheet" type="text/css" href="./css/Boom.css" />
@@ -24,7 +25,7 @@ var bom = boom();
 bom.boom($('img'));
 ```
 
-### 动画预设，支持传入不同参数调整效果
+### API
 ```javascript
 boom($('img'),{
   // 缩放值
