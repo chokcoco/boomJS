@@ -2,7 +2,7 @@
 
 一个有趣的动画效果，用 `JavaScript` 配合 `CSS3` 实现让图片爆炸的动画。
 
-[Demo演示戳我](http://sbco.cc/demo/boom/demo.html)
+[Demo演示戳我](https://github.com/chokcoco/demo/boom/demo.html)
 
 ### Example
 
