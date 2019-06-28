@@ -48,7 +48,3 @@ boom($('img'),{
 ```
 温馨提示，不建议将 scaleLevel 的值设太高 :) 。
 
-### IOS 下的效果
-[UIViewXXYBoom](https://github.com/xxycode/UIViewXXYBoom)
-
-之前在 IOS 上面看到了一个这样的效果，寻思着能否用 Javascript 实现一遍，捣鼓了一番做出了如上图所示效果，因为是非 canvas ，无法取到图片上的色值，使用了背景图定位代替，所以性能方面可能有所不足。
